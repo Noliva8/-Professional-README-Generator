@@ -73,26 +73,53 @@ const questions = [
         message:" what is your email?",
     },
 
-
-
 ];
     
  
-inquirer.prompt(questions)
-.then((answers) => {
-    console.log(answers)
-  });
+//  FUNCTION TOGENERATE README
 
+const generateREADME= (answers) => {
+    return 
+`# ${answers.title}
 
+## Description
+${answers.description}
 
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fs.writeFile('README.md', 'data', (err) => (err) ? console.error(err) : console.log('README.md has been created successfully!') )
+## Installation
+${answers.installation}
+
+## Usage
+${answers.usage}
+
+## License
+![License](https://img.shields.io/badge/License-${encodeURIComponent(answers.license)}-blue.svg)
+This project is licensed under the ${answers.license} license.
+
+## Contributing
+${answers.contribution}
+
+## Tests
+${answers.test}
+
+## Questions
+For questions about this project, please visit [${answers.username}](https://github.com/${answers.username}) on GitHub.
+You can also reach out to ${answers.email} with additional questions.
+`;
 }
 
+
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    
+}
 
 // Function call to initialize app
 init();
