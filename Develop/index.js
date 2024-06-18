@@ -12,14 +12,26 @@ const questions = [
     {
         type:"input",
         name: "title",
-        message:" what is your project title?"
+        message:" what is your project title?",
+        validate: (answer) => {
+            if(answer.trim() === ""){
+                return " you need to provide a project title"
+            }
+            return true ;
+        }
 
     },
 
      {
         type:"input",
         name: "description",
-        message:" what is your project description?"
+        message:" what is your project description?",
+        validate: (answer) => {
+            if(answer.length < 20){
+                return 'your description is too short'
+            }
+            return true;
+        }
 
     },
 
@@ -65,13 +77,29 @@ const questions = [
         type:"input",
         name: "username",
         message:" what is your github username?",
+        validate: (answer) => {
+            if(answer.trim() === ""){
+                return 'provide the valid username'
+            }
+            return true;
+        }
     },
 
-       {
-        type:"input",
-        name: "email",
-        message:" what is your email?",
-    },
+      {
+    type: "input",
+    name: "email",
+    message: "What is your email?",
+    validate: (answer) => {
+        const lowercaseAnswer = answer.toLowerCase();
+
+        if (!lowercaseAnswer.includes('@')) {
+            return 'Please provide a valid email address (must contain @)';
+        }
+
+        return true;
+    }
+}
+
 
 ];
     
@@ -79,8 +107,9 @@ const questions = [
 //  FUNCTION TOGENERATE README
 
 const generateREADME= (answers) => {
-    return 
-`# ${answers.title}
+    return `# ${answers.title}
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
 ${answers.description}
@@ -100,7 +129,7 @@ ${answers.installation}
 ${answers.usage}
 
 ## License
-![License](https://img.shields.io/badge/License-${encodeURIComponent(answers.license)}-blue.svg)
+
 This project is licensed under the ${answers.license} license.
 
 ## Contributing
@@ -116,9 +145,28 @@ You can also reach out to ${answers.email} with additional questions.
 }
 
 
+
+// Function to write README file
+const writeToFile = (fileName, data) => {
+    fs.writeFile(fileName, data, (err) => {
+     (err) ? console.error(err) : console.log('README.md has been successfully! created');
+            
+  
+    });
+}
+
+
+
 // TODO: Create a function to initialize app
 function init() {
-    
+    inquirer.prompt(questions)
+        .then((answers) => {
+            const readmeContent = generateREADME(answers);
+            writeToFile('README.md', readmeContent);
+        })
+        .catch((error) => {
+            console.error('Error during inquirer prompt:', error);
+        });
 }
 
 // Function call to initialize app
