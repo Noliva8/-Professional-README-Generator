@@ -68,7 +68,7 @@ const questions = [
         type:"list",
         name: "license",
         message:" which licence for this project?",
-        choices : ["MIT", "GNU General Public License (GPL)", "GNU Lesser General Public License (LGPL)", "Apache License (Apache-2.0)", "BSD License", "Mozilla Public License (MPL)", "End User License Agreement (EULA) ", "Perpetual License" ]
+        choices : ["MIT", "Apache 2.0 License", "Boost Software License 1.0", "BSD 3-Clause License", "BSD 2-Clause License", "Creative Commons", "CC0", "GNU" , "IBM" ]
 
     },
 
@@ -102,14 +102,38 @@ const questions = [
 
 
 ];
-    
+
+
+// FUNCTION TO GENERATE BADGES
+
+    const badge = (license) => {
+    if (license === "MIT") {
+        return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)';
+    }
+    if (license === "Apache License 2.0") {
+        return '[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)';
+    }
+    if (license === "Boost Software License 1.0") {
+        return '[![License](https://img.shields.io/badge/License-Boost_1.0-lightblue.svg)](https://www.boost.org/LICENSE_1_0.txt)';
+    }
+    if (license === "BSD 3-Clause License") {
+        return '[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)';
+    }
+    if (license === "Creative Commons") {
+        return '[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)';
+    }
+    return '';  // Return an empty string if no valid license is selected
+};
+
+ 
+
  
 //  FUNCTION TOGENERATE README
 
 const generateREADME= (answers) => {
     return `# ${answers.title}
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+${badge(answers.license)}
 
 ## Description
 ${answers.description}
