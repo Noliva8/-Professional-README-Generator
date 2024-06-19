@@ -19,6 +19,8 @@ The installation is simple, you need to install Node in your computer and depend
 ## Usage
 To use this application, follow these steps:
 
+https://www.youtube.com/watch?v=by2SOJkzFMY
+
 ## License
 
 This project is licensed under the MIT license.
